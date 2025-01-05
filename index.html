@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>欢迎来到我的个人站点</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="description" content="Description">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+   <!-- 设置页签图标 -->
+   <link rel="icon" href="/assets/favicon.ico" type="image/x-icon"> 
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
+  <style>
+    .__title__ {
+      font-size: 1em; /* 增大字体 */
+      font-weight: bold; /* 加粗字体 */
+      background: linear-gradient(45deg, #FFB6C1, #87CEEB, #FFD700); /* 明亮的渐变背景（粉色 -> 天蓝色 -> 明黄色） */
+      -webkit-background-clip: text; /* 使渐变只应用于文字 */
+      background-clip: text; /* 使渐变只应用于文字 */
+      color: transparent; /* 让文字本身透明，渐变背景显示 */
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* 轻微阴影，使文字更清晰 */
+      letter-spacing: 1px; /* 调整字间距 */
+      animation: shine 3s infinite; /* 添加渐变动画效果 */
+    }
+    /* 渐变闪烁效果 */
+    @keyframes shine {
+      0% {
+        background-position: -200%;
+      }
+      50% {
+        background-position: 200%;
+      }
+      100% {
+        background-position: -200%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    正在为您努力加载ing...
+  </div>
+  <script>
+    window.$docsify = {
+      name: '<span class="__title__">卓洵的个人笔记<span>', // 网站标题
+      nameLink: '#/README',
+      repo: '',
+      static: 'assets',  // 你存放图标和其他静态资源的文件夹
+      loadSidebar: true,  // 启用侧边栏
+      subMaxLevel: 2,      // 设置子目录的最大显示层级
+      auto2top: true,     // 点击链接后自动回到顶部
+      search: 'auto',     // 启用搜索框
+      executeScript: true,  // 允许执行嵌入的脚本
+      coverpage: true, // 封面
+      onlyCover: true, // 仅加载封面
+      notFoundPage: true, // 错误页面，默认 _404.md
+      copyCode: { // 代码复制插件配置
+        buttonText: '复制',
+        errorText: '出错啦~',
+        successText: 'ok~~',
+      },
+      count:{ // 字数统计插件
+        countable:true,
+        fontsize:'0.9em',
+        color:'rgb(90,90,90)',
+        language:'chinese'
+      }
+    }
+  </script>
+  <!-- Docsify v4 -->
+  <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/emoji.min.js"></script>
+  <!--语法高亮-->
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-bash.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-sql.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-pl/sql.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-java.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-go.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-c.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-cpp.min.js"></script>
+  <!--复制-->
+  <script src="//cdn.jsdelivr.net/npm/docsify-copy-code/dist/docsify-copy-code.min.js"></script>
+  <!--分页-->
+  <script src="//cdn.jsdelivr.net/npm/docsify-pagination/dist/docsify-pagination.min.js"></script>
+  <!--字数统计-->
+  <script src="//unpkg.com/docsify-count/dist/countable.js"></script>
+</body>
+</html>
