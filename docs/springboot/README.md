@@ -1,4 +1,4 @@
-# Spring Boot 总览
+# Spring Boot 总览 <!-- {docsify-ignore-all} -->
 
 Spring Boot 是一个简化了 Spring 应用程序开发的框架。它通过自动配置和内嵌服务器，让开发者不再需要复杂的配置，简化了开发流程。
 

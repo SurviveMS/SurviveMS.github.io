@@ -1,4 +1,4 @@
-# Spring 总览
+# Spring 总览 <!-- {docsify-ignore-all} -->
 
 Spring 框架是一个开源的企业级 Java 应用程序开发框架，具有灵活的配置、丰富的功能和广泛的生态系统。
 

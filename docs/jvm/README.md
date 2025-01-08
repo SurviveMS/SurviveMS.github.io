@@ -1,4 +1,4 @@
-# JVM 总览
+# JVM 总览 <!-- {docsify-ignore-all} -->
 
 Java 虚拟机（JVM）是 Java 程序运行的基础，它负责将 Java 字节码转换为特定平台的机器代码。
 
