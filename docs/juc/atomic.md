@@ -283,6 +283,115 @@ public class AtomicMarkableReferenceDemo {
 
 ## 数组类型原子包装类
 
+前面介绍了对于基本类型和引用类型变量的原子操作，但是如果需要对引用元素内部的值进行原子更新，那么前面介绍的工具将不再适用。JUC 提供了数组类型和引用
+类型的字段更新器。下面是一个多线程更新数组元素的错误示例代码：
+
+```java
+@Slf4j
+@SuppressWarnings("all")
+public class ArrayDemo {
+    public static void main(String[] args) {
+        List<Thread> threadList = new ArrayList<>();
+        // 整数数组
+        int[] array = new int[100];
+        for (int i = 0; i < 100; i++) {
+            threadList.add(new Thread(() -> {
+                for (int j = 0; j < 100; j++) {
+                    array[j]++;
+                }
+            }, "t" + i));
+        }
+        threadList.forEach(Thread::start);
+        log.info("{}", Arrays.toString(array));
+    }
+}
+```
+
+对于上面代码，数组元素的更新操作是非线程安全的，多运行几次会出现不同的结果！！！
+
+### AtomicIntegerArray
+
+`AtomicIntegerArray` 用于原子的更新数组元素，该类接收一个整形参数或者整形数组用于指定需要原子操作的数组。其 API 与 `AtomicIntegerArray` 类似。
+
+`AtomicLongArray` 示例
+
+```java
+@Slf4j
+@SuppressWarnings("all")
+public class AtomicLongArrayDemo {
+    private final static int ARRAY_LENGTH = 100;
+    public static void main(String[] args) throws InterruptedException {
+        AtomicLongArray atomicLongArray = new AtomicLongArray(10);
+        List<Thread> threadList = new ArrayList<>();
+        for (int i = 0; i < ARRAY_LENGTH; i++) {
+            threadList.add(new Thread(() -> {
+                for (int j = 0; j < atomicLongArray.length(); j++) {
+                    atomicLongArray.incrementAndGet(j);
+                }
+            }, "thread-" + i));
+        }
+        for (Thread thread : threadList) {
+            thread.start();
+            thread.join();
+        }
+        log.info("atomicLongArray = {}", atomicLongArray);
+    }
+}
+```
+
+### AtomicReferenceArray
+
+上面介绍了整形的原子数组，JUC 也提供了基于对象引用的原子数组 `AtomicReferenceArray`。该类接收一个范型参数，用于指定内部数组的类型。
+`AtomicReferenceArray` API 与前面介绍的原子数组引用类似，不再介绍。
+
+`AtomicReferenceArray` 示例
+
+```java
+@Slf4j
+@SuppressWarnings("all")
+public class AtomicReferenceArrayDemo {
+    public static void main(String[] args) {
+        String[] initialArray = {"A", "B", "C", "D"};
+        AtomicReferenceArray array = new AtomicReferenceArray(initialArray);
+        log.info("数组初始化：");
+        for (int i = 0; i < array.length(); i++) {
+            log.info("index {} is {}", i, array.get(i));
+        }
+
+        // 使用多线程并发更新数组元素
+        Thread t1 = new Thread(() -> {
+            boolean updated = array.compareAndSet(0, "A", "X");
+            if (updated) {
+                log.info("{} updated index 0 to X", Thread.currentThread().getName());
+            }
+        });
+
+        Thread t2 = new Thread(() -> {
+            boolean updated = array.compareAndSet(0, "A", "Y");
+            if (updated) {
+                log.info("{} updated index 0 to Y", Thread.currentThread().getName());
+            }
+        });
+
+        t1.start();
+        t2.start();
+
+        try {
+            t1.join();
+            t2.join();
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+
+        // 打印最终结果
+        log.info("final result: ");
+        for (int i = 0; i < array.length(); i++) {
+            log.info("index {} is {}", i, array.get(i));
+        }
+    }
+}
+```
+
 ## 字段更新器
 
 ## 原子累加器
